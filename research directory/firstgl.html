@@ -1,13 +1,22 @@
 <html>
 <head>
-
+  <meta name="color-scheme" content="light dark">
+  <link rel="stylesheet" href="firstgl.css">
 </head>
-<body> 
+<body>
 
-    First GL
-    <canvas id="firstWEBgl" width="300" height="150"></canvas>
+  <div class="theme-switcher">
+    <button type="button" data-theme="light">Light</button>
+    <button type="button" data-theme="dark">Dark</button>
+    <button type="button" data-theme="auto">Auto</button>
+  </div>
 
-      <script src="first3d.jd.js"></script>
+  <br>
+  First GL
+  <canvas id="firstWEBgl" width="300" height="350"></canvas>
+
+  <script src="first3d.jd.js"></script>
+  <script src="firstgl.theme.js"></script>
 
 </body>
 

@@ -1,0 +1,79 @@
+/* --- Theme variables --- */
+:root {
+  --bg: #f5f5f5;
+  --fg: #1a1a1a;
+  --btn-bg: #e0e0e0;
+  --btn-fg: #1a1a1a;
+  --btn-active-bg: #1a1a1a;
+  --btn-active-fg: #f5f5f5;
+  --border: #bbb;
+}
+
+/* html[data-theme] beats :root (higher specificity: 0,1,1 vs 0,1,0) */
+html[data-theme="dark"] {
+  --bg: #1a1a1a;
+  --fg: #f0f0f0;
+  --btn-bg: #2e2e2e;
+  --btn-fg: #f0f0f0;
+  --btn-active-bg: #f0f0f0;
+  --btn-active-fg: #1a1a1a;
+  --border: #555;
+}
+
+@media (prefers-color-scheme: dark) {
+  html[data-theme="auto"] {
+    --bg: #1a1a1a;
+    --fg: #f0f0f0;
+    --btn-bg: #2e2e2e;
+    --btn-fg: #f0f0f0;
+    --btn-active-bg: #f0f0f0;
+    --btn-active-fg: #1a1a1a;
+    --border: #555;
+  }
+}
+
+/* --- Base styles --- */
+html, body {
+  background-color: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: sans-serif;
+  margin: 1rem;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+/* --- Theme switcher --- */
+.theme-switcher {
+  display: inline-flex;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+}
+
+.theme-switcher button {
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  border: none;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  font-size: 0.85rem;
+  transition: background 0.15s, color 0.15s;
+}
+
+.theme-switcher button + button {
+  border-left: 1px solid var(--border);
+}
+
+.theme-switcher button.active {
+  background: var(--btn-active-bg);
+  color: var(--btn-active-fg);
+}
+
+canvas {
+  display: block;
+  margin-top: 0.5rem;
+}
