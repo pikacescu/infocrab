@@ -5,17 +5,21 @@
 
 
 var vertexShaderSource = `#version 300 es
-in vec4 a_position;
+in vec3 a_position;
+in vec4 a_color;
+out vec4 v_color;
 void main() {
-  gl_Position = a_position;
+  gl_Position = vec4(a_position, 1.0);
+  v_color = a_color;
 }
 `;
 
 var fragmentShaderSource = `#version 300 es
 precision highp float;
+in vec4 v_color;
 out vec4 outColor;
 void main() {
-  outColor = vec4(1, 0, 0.5, 1);
+  outColor = v_color;
 }
 `;
 
@@ -64,45 +68,57 @@ function main() {
   var program = createProgram(gl, vertexShader, fragmentShader);
 
   // look up where the vertex data needs to go.
-  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
 
   // Create a buffer and put three 2d clip space points in it
-  var positionBuffer = gl.createBuffer();
-
-  // Bind it to ARRAY_BUFFER (think of it as ARRAY_BUFFER = positionBuffer)
-  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-  
   var positions = [
-    0, 0,
-    0, 0.5,
-    0.7, 0,
+    -0.5, 0.0, 0.0,
+    0.0, 0.5, -1.2,
+    0.5, 0.0, 0.0,
   ];
-  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
-  // Create a vertex array object (attribute state)
+  // var colors = [
+  //   1.0, 0.0, 0.0, 1.0,  // vertex 0: red
+  //   0.0, 1.0, 0.0, 1.0,  // vertex 1: green
+  //   0.0, 0.0, 1.0, 1.0,  // vertex 2: blue
+  // ];
+  var colors = [
+    0.0, 1.0, 1.0, 1.0,  // vertex 1: green
+    0.0, 1.0, 1.0, 1.0,  // vertex 1: green
+    0.0, 1.0, 1.0, 1.0,  // vertex 1: green
+  ];
+
+  gl.useProgram(program);
+  var positionAttributeLocation = gl.getAttribLocation(program, "a_position");
+  var colorAttributeLocation = gl.getAttribLocation(program, "a_color");
+
   var vao = gl.createVertexArray();
-
-  // and make it the one we're currently working with
   gl.bindVertexArray(vao);
 
-  // Turn on the attribute
+  var positionBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(positionAttributeLocation, 3, gl.FLOAT, false, 0, 0);
   gl.enableVertexAttribArray(positionAttributeLocation);
 
-  // Tell the attribute how to get data out of positionBuffer (ARRAY_BUFFER)        // start at the beginning of the buffer
-  gl.vertexAttribPointer(
-      positionAttributeLocation, 2, gl.FLOAT, false, 0, 0); //2=2D
+  var colorBuffer = gl.createBuffer();
+  gl.bindBuffer(gl.ARRAY_BUFFER, colorBuffer);
+  gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(colors), gl.STATIC_DRAW);
+  gl.vertexAttribPointer(colorAttributeLocation, 4, gl.FLOAT, false, 0, 0);
+  gl.enableVertexAttribArray(colorAttributeLocation);
 
-  // Tell WebGL how to convert from clip space to pixels
+
   gl.viewport(0, 0, gl.canvas.width, gl.canvas.height);
 
-  // Clear the canvas
-  gl.clearColor(0, 0, 0, 0);
-  gl.clear(gl.COLOR_BUFFER_BIT);
+  gl.clearColor(0, 0.5, 0, 0);
+  // Prepar render context
+  gl.enable(gl.DEPTH_TEST);
+  gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+  //gl.clear(gl.COLOR_BUFFER_BIT ); //| gl.DEPTH_BUFFER_BIT);
 
-  // Tell it to use our program (pair of shaders)
+  // TRender logic here
   gl.useProgram(program);
   gl.bindVertexArray(vao);
-  gl.drawArrays(gl.TRIANGLES, 0, 3); //3 verties satarting from 0
+  gl.drawArrays(gl.TRIANGLES, 0, 3); //3 vertices satarting from 0
 }
 
 main();
