@@ -74,13 +74,18 @@ function main() {
     -0.5, 0.0, 0.0,
     0.0, 0.5, -1.2,
     0.5, 0.0, 0.0,
+
     -0.5, 0.3, -0.0,
     0.5, 0.3, -0.0,
     0.0, -0.2, -0.2,
 
     -0.5, 1.0, 0.0,
     0.0, 0.5, 0.0,
-    0.5, 1.0, -0.0,
+    0.5, 1.0, 0.0,
+
+    -0.5, 0.5, 0.0,
+    0.0, 1.0, 0.0,
+    0.5, 0.5, -0.7,
   ];
 
 
@@ -102,6 +107,10 @@ function main() {
     0.1, 0.1, 0.1, 1.0,
     0.1, 0.1, 0.1, 1.0,
     0.1, 0.1, 0.1, 1.0,
+
+    -0.5, 1.0, 0.0,
+    0.0, 0.5, 0.0,
+    0.5, 1.0, -0.0,
   ];
 
   gl.useProgram(program);
@@ -135,7 +144,7 @@ function main() {
   // TRender logic here
   gl.useProgram(program);
   gl.bindVertexArray(vao);
-  gl.drawArrays(gl.TRIANGLES, 0, 9); //9 vertices satarting from 0
+  gl.drawArrays(gl.TRIANGLES, 0, 12); //9 vertices satarting from 0
 }
 
 main();
