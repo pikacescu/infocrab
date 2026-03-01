@@ -74,7 +74,16 @@ function main() {
     -0.5, 0.0, 0.0,
     0.0, 0.5, -1.2,
     0.5, 0.0, 0.0,
+    -0.5, 0.3, -0.0,
+    0.5, 0.3, -0.0,
+    0.0, -0.2, -0.2,
+
+    -0.5, 1.0, 0.0,
+    0.0, 0.5, 0.0,
+    0.5, 1.0, -0.0,
   ];
+
+
 
   // var colors = [
   //   1.0, 0.0, 0.0, 1.0,  // vertex 0: red
@@ -82,9 +91,17 @@ function main() {
   //   0.0, 0.0, 1.0, 1.0,  // vertex 2: blue
   // ];
   var colors = [
-    0.0, 1.0, 1.0, 1.0,  // vertex 1: green
-    0.0, 1.0, 1.0, 1.0,  // vertex 1: green
-    0.0, 1.0, 1.0, 1.0,  // vertex 1: green
+    0.0, 0.0, 1.0, 1.0,  // vertex 1: green
+    0.0, 0.0, 1.0, 1.0,  // vertex 1: green
+    0.0, 0.0, 1.0, 1.0,  // vertex 1: green
+
+    0.9, 0.1, 0.1, 1.0,
+    0.9, 0.1, 0.1, 1.0,
+    0.9, 0.1, 0.1, 1.0,
+
+    0.1, 0.1, 0.1, 1.0,
+    0.1, 0.1, 0.1, 1.0,
+    0.1, 0.1, 0.1, 1.0,
   ];
 
   gl.useProgram(program);
@@ -118,7 +135,7 @@ function main() {
   // TRender logic here
   gl.useProgram(program);
   gl.bindVertexArray(vao);
-  gl.drawArrays(gl.TRIANGLES, 0, 3); //3 vertices satarting from 0
+  gl.drawArrays(gl.TRIANGLES, 0, 9); //9 vertices satarting from 0
 }
 
 main();
